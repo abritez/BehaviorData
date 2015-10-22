@@ -110,10 +110,29 @@
             var myFirebaseRef = new Firebase("https://scrolllogger.firebaseio.com/");
             behaviorLog = [];
 
+            //log when a student blurs the window
+            $(window).blur(function(){
+                behaviorLog.push({
+                    type: "blurWindow",
+                    time: timer,
+                    value: $( this ).val() || ""
+                });
+            });
+
+            //log when a student blurs the window
+            $(window).focus(function(){
+                behaviorLog.push({
+                    type: "focusWindow",
+                    time: timer,
+                    value: $( this ).val() || ""
+                });
+            });
+
             //log when a student focuses on textarea
             $('.questPanels').find("textarea").focus(function(){
                 behaviorLog.push({
                     type: "focus",
+                    time: timer,
                     value: $( this ).val() || ""
                 });
             });
@@ -122,6 +141,7 @@
             $( ".submitBtn" ).click(function() {
                 behaviorLog.push({
                     type: "submit",
+                    time: timer,
                     scale: Math.floor((Math.random() * 10) + 1),//add the score from Mave
                     value: $( this ).siblings( "textarea").val() || ""
                 });
@@ -130,7 +150,8 @@
             //log when a student adjusted their answer
             $('.questPanels').find("textarea").change(function (el) {
                 behaviorLog.push({
-                    type: "textChange",
+                    type: "change",
+                    time: timer,
                     id: $(this).attr("id"),
                     value: $(this).val() || ""
                 });
@@ -161,7 +182,7 @@
                         scrollObj.questions[index] = {
                             id: $(this).attr('id'),
                             inView: elementInViewport($(this).get(0)),
-                            value: $(this).find("textarea").val()
+                            value: $(this).find("textarea").val() || ""
                         }
                     });
 
