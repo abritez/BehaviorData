@@ -114,8 +114,7 @@
             $(window).blur(function(){
                 behaviorLog.push({
                     type: "blurWindow",
-                    time: timer,
-                    value: $( this ).val() || ""
+                    time: timer
                 });
             });
 
@@ -123,8 +122,7 @@
             $(window).focus(function(){
                 behaviorLog.push({
                     type: "focusWindow",
-                    time: timer,
-                    value: $( this ).val() || ""
+                    time: timer
                 });
             });
 
